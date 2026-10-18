@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>ACSES ELECTION SYSTEM | FOR COURSE REPS</title>
+  <meta name="description" content="Official course representatives election portal for the Association of Computer Science & Engineering Students (ACSES), University of Mines and Technology (UMaT).">
+  <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="header-container">
+      <a href="#" class="brand-wrapper" id="brand-home-link">
+        <!-- ACSES.jpg Logo Replacement -->
+        <img src="/ACSES.jpg" alt="ACSES Official Logo" class="brand-logo-img">
+        <div class="brand-title-wrap">
+          <span class="brand-title">ACSES ELECTION SYSTEM</span>
+          <span class="brand-subtitle">FOR COURSE REPS</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <!-- Complementary State Badge with SVG Icon -->
+        <span id="election-status-badge" class="badge badge-active">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span id="badge-text">Polls Open</span>
+        </span>
+
+        <div id="auth-nav-items" style="display: none; align-items: center; gap: 8px;">
+          <span id="user-info-pill" class="user-tag">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span id="user-name-span">Student</span>
+          </span>
+          <button id="logout-btn" class="btn btn-secondary btn-sm">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-shell">
+
+    <!-- 1. SIGN IN SCREEN WITH UMaT.jfif HERO -->
+    <section id="login-screen" style="display: none;">
+      <div class="login-container-grid">
+        <!-- Hero side with UMaT.jfif -->
+        <div class="login-hero-side">
+          <img src="/UMaT.jfif" alt="UMaT Campus" class="login-hero-bg">
+          <div class="login-hero-overlay"></div>
+
+          <div class="login-hero-content">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+              <img src="/ACSES.jpg" alt="ACSES Crest" style="width: 48px; height: 48px; border-radius: 12px; border: 2px solid var(--c-aquamarine); flex-shrink: 0;">
+              <div>
+                <span class="hero-org-title">ASSOCIATION OF COMPUTER SCIENCE AND ENGINEERING STUDENTS</span>
+                <span class="hero-uni-subtitle">University of Mines and Technology</span>
+              </div>
+            </div>
+
+            <h1 style="font-size: clamp(22px, 5.5vw, 28px); color: #ffffff; margin-bottom: 12px; line-height: 1.2;">
+              ACSES ELECTION SYSTEM<br>
+              <span style="font-size: clamp(14px, 3.8vw, 17px); color: var(--c-aquamarine); font-weight: 600;">FOR COURSE REPS</span>
+            </h1>
+
+            <p style="color: #e2fcf0; font-size: clamp(13px, 3.2vw, 14.5px); line-height: 1.6; max-width: 44ch;">
+              Welcome to the official, decentralized digital ballot box. Exercise your student voting franchise securely, anonymously, and with full democratic transparency.
+            </p>
+          </div>
+
+          <div class="login-hero-content" style="padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.15); font-size: 12.5px; color: #d1fae5;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Cryptographically Anonymized & Isolated Ballot Architecture</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form side -->
+        <div class="login-form-side">
+          <h2 style="font-size: clamp(19px, 4.5vw, 22px); margin-bottom: 6px;">Sign In to Your Ballot</h2>
+          <p style="color: var(--c-text-muted); font-size: clamp(13px, 3vw, 14px); margin-bottom: 20px;">
+            Enter your Student Reference Number and your Voter Access Password (last 4 digits of your registered WhatsApp + program code, e.g. 0270CE).
+          </p>
+
+          <form id="login-form">
+            <div class="form-group">
+              <label class="form-label" for="login-ref">Student Reference Number</label>
+              <input type="text" id="login-ref" class="form-control" placeholder="e.g. 9018930221" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="login-pin">Voter Access Password</label>
+              <input type="password" id="login-pin" class="form-control" placeholder="e.g. 0270CE" maxlength="30" required autocomplete="current-password">
+              <span style="font-size: 11.5px; color: var(--c-text-subtle); display: block; margin-top: 4px;">
+                Format: Last 4 digits of WhatsApp + Program code (CE, CY, RB, IS)
+              </span>
+            </div>
+
+            <button type="submit" id="login-submit-btn" class="btn btn-primary" style="width: 100%; margin-top: 8px; min-height: 48px;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" x2="3" y1="12" y2="12"/></svg>
+              Access Voting Portal
+            </button>
+          </form>
+
+          <!-- Official ACSES Emblem (Replacing Aspirant CTA & Demo Accounts) -->
+          <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--c-border); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+            <img src="/LOGO.png" alt="ACSES Official Logo" style="max-width: 175px; width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 4px 14px rgba(10, 50, 0, 0.12));">
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-forest-green); margin-top: 10px; display: block; width: 100%; text-align: justify; text-align-last: justify;">
+              Association of Computer Science &amp; Engineering Students
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASPIRANT COURSE REP NOMINATION PORTAL SCREEN -->
+    <section id="aspirant-screen" style="display: none; max-width: 980px; margin: 0 auto; padding-bottom: 40px;">
+      <!-- Hero Banner for Aspirants -->
+      <div class="card" style="background: linear-gradient(135deg, var(--c-black-forest) 0%, var(--c-forest-green) 100%); color: #ffffff; border: none; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <img src="/ACSES.jpg" alt="ACSES Crest" style="width: 52px; height: 52px; border-radius: 12px; border: 2px solid var(--c-aquamarine); flex-shrink: 0;">
+            <div>
+              <span style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-aquamarine); font-weight: 700; display: block;">
+                ASSOCIATION OF COMPUTER SCIENCE AND ENGINEERING STUDENTS
+              </span>
+              <h1 style="font-size: clamp(20px, 4vw, 24px); color: #ffffff; margin: 2px 0 0 0;">
+                Course Representative Nomination Portal
+              </h1>
+              <span style="font-size: 13px; color: #d1fae5; display: block; margin-top: 2px;">
+                Official Candidacy Filing • Office of the Public Relations Officer
+              </span>
+            </div>
+          </div>
+
+          <button type="button" id="aspirant-back-btn" class="btn btn-secondary btn-sm" style="background: rgba(255,255,255,0.15); color: #ffffff; border-color: rgba(255,255,255,0.3);">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Return to Voting Portal
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Aspirant Layout: Form on Left, Live Preview on Right -->
+      <div id="aspirant-form-container" class="aspirant-grid-layout">
+        <div class="card" style="background: #ffffff;">
+          <h2 style="font-size: 18px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+            File Your Candidacy
+          </h2>
+          <p style="color: var(--c-text-muted); font-size: 13.5px; margin-bottom: 18px;">
+            Enter your student credentials to verify eligibility. Your contested seat (Male/Female Course Rep) and class cohort will be automatically assigned.
+          </p>
+
+          <form id="standalone-aspirant-form">
+            <!-- Step 1: Verification -->
+            <div id="aspirant-auth-box" style="background: var(--c-surface-muted); border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px;">
+              <strong style="font-size: 13.5px; display: block; margin-bottom: 10px; color: var(--c-text-primary);">
+                1. Student Verification
+              </strong>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" for="aspirant-ref" style="font-size: 12px;">Student Reference No.</label>
+                  <input type="text" id="aspirant-ref" class="form-control" placeholder="e.g. 9018930226" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" for="aspirant-pin" style="font-size: 12px;">Voter Access Password</label>
+                  <input type="password" id="aspirant-pin" class="form-control" placeholder="e.g. 0270CE" maxlength="30" required>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; flex-wrap: wrap; gap: 8px;">
+                <button type="button" id="aspirant-verify-btn" class="btn btn-secondary btn-sm" style="font-size: 12px;">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  Verify My Eligibility
+                </button>
+                <span id="aspirant-verify-status" style="font-size: 12px; color: var(--c-text-muted);">
+                  Awaiting verification...
+                </span>
+              </div>
+            </div>
+
+            <!-- Verified Student Summary Display -->
+            <div id="aspirant-verified-card" style="display: none; background: rgba(124, 255, 203, 0.12); border: 1.5px solid var(--c-aquamarine); border-radius: var(--radius-md); padding: 14px; margin-bottom: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+                <div>
+                  <span style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--c-forest-green); letter-spacing: 0.05em;">
+                    Verified Candidate Profile
+                  </span>
+                  <h3 id="aspirant-verified-name" style="font-size: 16px; margin: 2px 0;">Student Name</h3>
+                  <p id="aspirant-verified-meta" style="font-size: 12.5px; color: var(--c-text-muted); margin: 0;">
+                    Computer Science • Class A
+                  </p>
+                </div>
+                <span id="aspirant-assigned-position-badge" class="badge badge-active" style="font-size: 11.5px;">
+                  Male Course Rep
+                </span>
+              </div>
+            </div>
+
+            <!-- Step 2: Campaign Slogan -->
+            <div class="form-group">
+              <label class="form-label" for="aspirant-slogan">Campaign Slogan / Tagline</label>
+              <input type="text" id="aspirant-slogan" class="form-control" placeholder="e.g. Empowering Innovation, Bridging Student Needs" maxlength="100">
+              <span style="font-size: 11.5px; color: var(--c-text-subtle); display: block; margin-top: 4px;">
+                A concise one-line vision statement displayed prominently on your ballot card.
+              </span>
+            </div>
+
+            <!-- Step 3: Manifesto -->
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="form-label" for="aspirant-manifesto" style="margin-bottom: 0;">Formal Manifesto</label>
+                <span id="aspirant-char-count" style="font-size: 11.5px; color: var(--c-text-subtle);">0 / 20 min characters</span>
+              </div>
+              <textarea id="aspirant-manifesto" class="form-control" rows="4" placeholder="Detail your plans for course representation: tutorial sessions, liaison with departmental lecturers, exam timetable feedback..." required minlength="20"></textarea>
+            </div>
+
+            <!-- Step 4: Photo Selection -->
+            <div class="form-group">
+              <label class="form-label">Official Candidate Photograph (Upload Headshot)</label>
+              <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
+                <img id="aspirant-photo-preview" src="/person-avatar.svg" alt="Preview" style="width: 72px; height: 72px; border-radius: var(--radius-md); object-fit: cover; border: 2px solid var(--c-aquamarine-2); background: #f0fdf4;">
+                <div style="flex: 1; min-width: 200px;">
+                  <label class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                    Upload Candidate Photo
+                    <input type="file" id="aspirant-photo-file" accept="image/*" style="display: none;">
+                  </label>
+                  <span style="display: block; font-size: 11.5px; color: var(--c-text-subtle); margin-top: 4px;">
+                    Upload a real, clear portrait headshot of yourself from your phone or PC.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" id="aspirant-submit-btn" class="btn btn-action" style="width: 100%; min-height: 48px; font-size: 15px; margin-top: 10px;">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Submit Official Nomination
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Column: Live Interactive Ballot Card Preview & Guidelines -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Live Preview Card -->
+          <div class="card" style="background: #ffffff; border-top: 3px solid var(--c-forest-green); box-shadow: var(--shadow-subtle);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <strong style="font-size: 14px; color: var(--c-black-forest); display: flex; align-items: center; gap: 7px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Live Ballot Card Preview
+              </strong>
+              <span class="badge" style="background: rgba(10, 50, 0, 0.08); color: var(--c-forest-green); font-size: 11px; font-weight: 700; border: 1px solid rgba(10, 50, 0, 0.15); display: inline-flex; align-items: center; gap: 5px;">
+                <span style="background: var(--c-forest-green); width: 6px; height: 6px; border-radius: 50%; display: inline-block;"></span>
+                Real-Time
+              </span>
+            </div>
+            <p style="font-size: 12.5px; color: var(--c-text-muted); margin-bottom: 16px; line-height: 1.5;">
+              This is exactly how your candidate card will look to students voting in your class.
+            </p>
+
+            <div class="candidate-card selected" style="border: 2px solid var(--c-forest-green); box-shadow: 0 0 0 4px rgba(116, 242, 206, 0.4), var(--shadow-subtle); pointer-events: none; margin: 0 auto; width: 100%;">
+              <div class="candidate-photo-hero-wrap" style="height: 230px;">
+                <img id="aspirant-live-card-img" src="/person-avatar.svg" alt="Candidate" class="candidate-photo-hero" style="background: #f0fdf4;">
+                <div id="aspirant-live-position-badge" class="candidate-card-badge">
+                  <svg class="icon icon-sm" style="color: var(--c-aquamarine);" viewBox="0 0 24 24"><path d="M12 2L9 9l3 13 3-13z"/><path d="M9 2h6l-1 5h-4z"/></svg>
+                  Candidate Male Course Rep
+                </div>
+              </div>
+
+              <div class="candidate-card-body">
+                <h3 id="aspirant-live-name" class="candidate-name">Aspirant Name</h3>
+                <div class="candidate-pos">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span id="aspirant-live-dept">Academic Program • Class Cohort</span>
+                </div>
+
+                <div id="aspirant-live-slogan" class="candidate-slogan-quote">
+                  “Your campaign slogan will appear here”
+                </div>
+
+                <div class="manifesto-box">
+                  <p id="aspirant-live-manifesto" style="margin: 0; line-height: 1.55; color: var(--c-text-primary);">Your formal manifesto points will be read by student voters here...</p>
+                </div>
+
+                <div class="candidate-select-footer">
+                  <div class="candidate-radio-ui">
+                    <div class="radio-circle" style="border-color: var(--c-forest-green); background-color: var(--c-forest-green); color: #ffffff;">
+                      <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <span style="color: var(--c-forest-green); font-weight: 700;">Selected for Ballot</span>
+                  </div>
+
+                  <span id="aspirant-live-cohort-tag" class="user-tag" style="font-size: 11.5px; padding: 2px 8px;">
+                    Preview Mode
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guidelines Card -->
+          <div class="card" style="background: var(--c-surface-muted); font-size: 12.5px; border-left: 3px solid var(--c-forest-green);">
+            <strong style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--c-black-forest); margin-bottom: 10px;">
+              <svg class="icon icon-sm" style="color: var(--c-forest-green); flex-shrink: 0;" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+              Nomination Guidelines
+            </strong>
+            <ul style="padding-left: 18px; margin: 0; line-height: 1.6; color: var(--c-text-muted);">
+              <li>Must be an active student registered under ACSES.</li>
+              <li>Each class section will elect exactly <strong>1 Male</strong> and <strong>1 Female</strong> Course Representative.</li>
+              <li>Nominations must be vetted and approved by the <strong>ACSES Public Relations Officer</strong> before appearing on active ballots.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Receipt / Confirmation Container (Shown after submission) -->
+      <div id="aspirant-receipt-container" style="display: none;" class="card">
+        <div style="text-align: center; max-width: 520px; margin: 0 auto; padding: 24px 10px;">
+          <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(124, 255, 203, 0.25); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; color: var(--c-forest-green);">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h2 style="font-size: 22px; margin-bottom: 8px; color: var(--c-black-forest);">Nomination Successfully Filed!</h2>
+          <p style="font-size: 14px; color: var(--c-text-muted); line-height: 1.6; margin-bottom: 20px;">
+            Your application for Course Representative has been transmitted directly to the <strong>Office of the ACSES Public Relations Officer</strong>.
+          </p>
+
+          <div style="background: var(--c-surface-muted); border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 16px; text-align: left; margin-bottom: 24px; font-size: 13.5px;">
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed var(--c-border);">
+              <span style="color: var(--c-text-subtle);">Candidate Name:</span>
+              <strong id="receipt-name">-</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed var(--c-border);">
+              <span style="color: var(--c-text-subtle);">Student Ref:</span>
+              <strong id="receipt-ref">-</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed var(--c-border);">
+              <span style="color: var(--c-text-subtle);">Contested Seat:</span>
+              <strong id="receipt-seat">-</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+              <span style="color: var(--c-text-subtle);">Status:</span>
+              <span class="badge badge-paused" style="font-size: 11px;">Pending PRO Vetting</span>
+            </div>
+          </div>
+
+          <button type="button" id="receipt-home-btn" class="btn btn-primary" style="min-height: 46px; width: 100%;">
+            Return to Voting Portal
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. STUDENT VOTING DASHBOARD -->
+    <section id="voter-screen" style="display: none;">
+
+      <!-- Voter Header Card -->
+      <div class="card" style="background: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h1 id="voter-name-heading" style="font-size: 22px;">Welcome, Student</h1>
+            <p id="voter-details-sub" style="color: var(--c-text-muted); font-size: 14.5px; margin-top: 4px;">
+              Computer Science • Assigned Cohort: Class A
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <button type="button" id="voter-apply-btn" class="btn btn-secondary btn-sm" style="font-size: 12.5px; border-color: var(--c-forest-green); color: var(--c-forest-green); font-weight: 600;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+              Course Rep Application
+            </button>
+            <span class="user-tag" style="background: var(--c-surface-muted);">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              Verified Student Roster
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Voting Status Alert (If already voted or election paused/closed) -->
+      <div id="voter-alert-banner" style="display: none;" class="card" style="border-left: 5px solid var(--c-forest-green);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div id="voter-alert-icon-box" style="width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--c-status-active-bg); color: var(--c-forest-green);">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div id="voter-alert-text" style="font-size: 14.5px;"></div>
+        </div>
+      </div>
+
+      <!-- CERTIFIED ELECTION RESULTS & WINNERS CARD (Displayed for Students when Polls Close) -->
+      <div class="card" id="voter-results-card" style="display: none; margin-bottom: 24px; border: 2px solid var(--c-forest-green); background: linear-gradient(180deg, #ffffff 0%, rgba(240, 253, 244, 0.45) 100%); box-shadow: var(--shadow-prominent);">
+        <!-- Injected dynamically via loadResultsView() in app.js -->
+      </div>
+
+      <!-- LIVE PROGRAM ELECTION TRACKER (Requirement: Track live election for their program) -->
+      <div class="card" id="program-election-tracker-card" style="margin-bottom: 24px; border-left: 4px solid var(--c-forest-green); background: linear-gradient(180deg, #ffffff 0%, rgba(240, 253, 244, 0.45) 100%);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);"></span>
+              <span style="font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-forest-green);">
+                Live Program Election Tracker
+              </span>
+            </div>
+            <h2 id="tracker-program-title" style="font-size: 20px; color: var(--c-black-forest); margin: 3px 0 0 0;">
+              Program Live Election
+            </h2>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span id="tracker-status-badge" class="badge badge-active" style="font-size: 11.5px;">
+              Polls Open
+            </span>
+            <button type="button" id="tracker-refresh-btn" class="btn btn-secondary btn-sm" style="font-size: 12px; padding: 4px 10px;" title="Refresh Live Data">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              <span>Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Key Statistics Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 12px; margin-bottom: 18px;">
+          <div style="background: #ffffff; border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 12px;">
+            <span style="font-size: 12px; color: var(--c-text-muted); display: block;">Program Turnout</span>
+            <strong id="tracker-turnout-pct" style="font-size: 22px; color: var(--c-forest-green); font-weight: 800; display: block; line-height: 1.2;">0%</strong>
+            <span id="tracker-turnout-ratio" style="font-size: 11.5px; color: var(--c-text-subtle);">0 of 0 votes cast</span>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 12px;">
+            <span style="font-size: 12px; color: var(--c-text-muted); display: block;">Class A Turnout</span>
+            <strong id="tracker-turnout-class-a" style="font-size: 19px; color: var(--c-black-forest); font-weight: 700; display: block; line-height: 1.2;">0%</strong>
+            <div style="height: 6px; background: var(--c-border); border-radius: 3px; overflow: hidden; margin-top: 6px;">
+              <div id="tracker-bar-class-a" style="height: 100%; width: 0%; background: var(--c-forest-green); transition: width 0.4s ease;"></div>
+            </div>
+            <span id="tracker-ratio-class-a" style="font-size: 11px; color: var(--c-text-subtle); display: block; margin-top: 4px;">0 / 0</span>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 12px;">
+            <span style="font-size: 12px; color: var(--c-text-muted); display: block;">Class B Turnout</span>
+            <strong id="tracker-turnout-class-b" style="font-size: 19px; color: var(--c-black-forest); font-weight: 700; display: block; line-height: 1.2;">0%</strong>
+            <div style="height: 6px; background: var(--c-border); border-radius: 3px; overflow: hidden; margin-top: 6px;">
+              <div id="tracker-bar-class-b" style="height: 100%; width: 0%; background: var(--c-forest-green); transition: width 0.4s ease;"></div>
+            </div>
+            <span id="tracker-ratio-class-b" style="font-size: 11px; color: var(--c-text-subtle); display: block; margin-top: 4px;">0 / 0</span>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 12px;">
+            <span style="font-size: 12px; color: var(--c-text-muted); display: block;">Cohort Rep Rule</span>
+            <strong style="font-size: 13.5px; color: var(--c-black-forest); display: block; margin-top: 4px;">1 Male &amp; 1 Female</strong>
+            <span style="font-size: 11px; color: var(--c-text-subtle);">Mandatory per cohort</span>
+          </div>
+        </div>
+
+        <!-- Live Candidate Standings for This Department -->
+        <div>
+          <h3 style="font-size: 13.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--c-forest-green); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Live Candidate Race Standings
+          </h3>
+          <div id="tracker-candidates-list" style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="color: var(--c-text-subtle); font-size: 13px; font-style: italic; padding: 10px 0;">Loading live election standings...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ballot Section (Dual-Gender Representation: 1 Male Rep + 1 Female Rep per Class) -->
+      <div class="card" id="ballot-card">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+          <h2 style="font-size: 20px; display: flex; align-items: center; gap: 8px;">
+            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+            Course Representatives Ballot
+          </h2>
+          <span id="ballot-cohort-badge" class="user-tag" style="font-weight: 700; color: var(--c-forest-green);">
+            Electing 1 Male Rep & 1 Female Rep
+          </span>
+        </div>
+        <p style="color: var(--c-text-muted); font-size: 14px; margin-bottom: 20px;">
+          Candidate nominations verified by the <strong>ACSES Public Relations Officer</strong>. Each class cohort elects <strong>1 Male Representative</strong> and <strong>1 Female Representative</strong>. Tap your preferred candidate in each section.
+        </p>
+
+        <!-- SEAT 1: MALE COURSE REPRESENTATIVE -->
+        <div style="margin-bottom: 28px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid rgba(10, 50, 0, 0.12); margin-bottom: 14px;">
+            <h3 style="font-size: 18px; display: flex; align-items: center; gap: 8px; color: var(--c-black-forest);">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Male Course Representative
+            </h3>
+            <span id="male-candidate-count-badge" class="badge badge-active" style="font-size: 11.5px;">1 Seat Available</span>
+          </div>
+          <div id="male-candidate-list-container" class="candidate-grid">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+
+        <!-- SEAT 2: FEMALE COURSE REPRESENTATIVE -->
+        <div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; border-bottom: 2px solid rgba(10, 50, 0, 0.12); margin-bottom: 14px;">
+            <h3 style="font-size: 18px; display: flex; align-items: center; gap: 8px; color: var(--c-black-forest);">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><circle cx="12" cy="12" r="10"/></svg>
+              Female Course Representative
+            </h3>
+            <span id="female-candidate-count-badge" class="badge badge-active" style="font-size: 11.5px;">1 Seat Available</span>
+          </div>
+          <div id="female-candidate-list-container" class="candidate-grid">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Conditional WhatsApp Community Hub (Requirement 3.C) -->
+      <div class="card" style="margin-top: 24px;">
+        <h2 style="font-size: 18px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+          <svg class="icon" style="color: #25d366;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Official WhatsApp Channels
+        </h2>
+        <p style="color: var(--c-text-muted); font-size: 14px; margin-bottom: 12px;">
+          Department announcements, academic discussions, and your assigned cohort space.
+        </p>
+
+        <div id="community-links-container" class="community-grid">
+          <!-- Dynamically populated: Main Group + Discussion + (Class A OR Class B strictly) -->
+        </div>
+      </div>
+
+      <!-- Sticky Mobile Action Dock -->
+      <div id="sticky-voting-dock" class="voting-dock" style="display: none;">
+        <div>
+          <div id="dock-selection-summary" style="font-weight: 700; font-size: 14px; color: var(--c-black-forest); display: flex; flex-direction: column; gap: 3px;">
+            <span id="dock-male-label" style="display: flex; align-items: center; gap: 6px;">
+              <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Male Rep: None chosen</span>
+            </span>
+            <span id="dock-female-label" style="display: flex; align-items: center; gap: 6px;">
+              <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><circle cx="12" cy="12" r="10"/></svg>
+              <span>Female Rep: None chosen</span>
+            </span>
+          </div>
+          <span style="display: block; font-size: 11.5px; color: var(--c-text-subtle); margin-top: 2px;">
+            Anonymous dual-seat class ballot
+          </span>
+        </div>
+
+        <button id="cast-vote-btn" class="btn btn-action" disabled>
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Cast Anonymous Ballot
+        </button>
+      </div>
+    </section>
+
+    <!-- 3. ADMIN DASHBOARD SCREEN -->
+    <section id="admin-screen" style="display: none;">
+      <!-- Admin Control Header -->
+      <div class="card" style="background: var(--c-black-forest); color: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="/ACSES.jpg" alt="ACSES" style="width: 44px; height: 44px; border-radius: 10px; border: 2px solid var(--c-aquamarine);">
+            <div>
+              <h1 style="color: var(--c-aquamarine); font-size: 21px;">Office of the Public Relations Officer</h1>
+              <p style="color: #d1fae5; font-size: 13.5px;">Turnout statistics, candidate approvals, WhatsApp link management, and roster governance.</p>
+            </div>
+          </div>
+
+          <!-- Master Election Switch -->
+          <div class="admin-switch-wrap">
+            <span style="font-size: 13px; color: var(--c-icy-aqua); font-weight: 600;">Election Master State:</span>
+            <button class="btn btn-sm election-switch-btn" data-status="active" style="background: var(--c-forest-green); color: #ffffff;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Open Polls
+            </button>
+            <button class="btn btn-sm election-switch-btn" data-status="paused" style="background: #92400e; color: #ffffff;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect width="4" height="16" x="6" y="4"/><rect width="4" height="16" x="14" y="4"/></svg>
+              Pause Voting
+            </button>
+            <button class="btn btn-sm election-switch-btn" data-status="closed" style="background: #991b1b; color: #ffffff;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Close & Finalize
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Navigation Tabs (Includes WhatsApp Links tab) -->
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="tab-analytics">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+          Turnout Analytics
+        </button>
+        <button class="nav-tab" data-tab="tab-candidates">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+          Candidate Approvals
+        </button>
+        <button class="nav-tab" data-tab="tab-roster">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Roster & PIN Reset
+        </button>
+        <button class="nav-tab" data-tab="tab-whatsapp">
+          <svg class="icon icon-sm" style="color: #25d366;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          WhatsApp Links Manager
+        </button>
+        <button class="nav-tab" data-tab="tab-results">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34c0-.38.22-.73.57-.89l2.86-1.34"/><path d="M14 14.66V17c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2.34c0-.38-.22-.73-.57-.89l-2.86-1.34"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+          Live Results & Audit
+        </button>
+      </div>
+
+      <!-- Tab 1: Turnout Analytics -->
+      <div id="tab-analytics" class="admin-tab-content">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+            <h2 style="font-size: 19px; display: flex; align-items: center; gap: 8px;">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+              Overall Voter Participation
+            </h2>
+            <span id="overall-turnout-stat" style="font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--c-forest-green);">0%</span>
+          </div>
+
+          <div class="progress-track" style="height: 18px; margin-bottom: 24px;">
+            <div id="overall-turnout-bar" class="progress-fill" style="width: 0%;"></div>
+          </div>
+
+          <h3 style="font-size: 16.5px; margin-bottom: 16px;">Turnout by Academic Program</h3>
+          <div id="program-turnout-list">
+            <!-- Program progress bars dynamically injected -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Candidate Approvals -->
+      <div id="tab-candidates" class="admin-tab-content" style="display: none;">
+        <div class="card">
+          <!-- Shareable Aspirant Link Banner -->
+          <div style="background: rgba(116, 242, 206, 0.15); border: 1.5px solid var(--c-aquamarine-2); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <strong style="font-size: 14.5px; color: var(--c-black-forest); display: flex; align-items: center; gap: 6px;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                Special Aspirant Nomination Link
+              </strong>
+              <span style="display: block; font-size: 12.5px; color: var(--c-text-muted); margin-top: 2px;">
+                Share this dedicated link on WhatsApp only to students interested in contesting. Regular student voters do not see any application banners on their pages.
+              </span>
+            </div>
+            <button type="button" class="btn btn-action btn-sm" id="copy-aspirant-link-btn">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Copy Aspirant Link
+            </button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 19px; display: flex; align-items: center; gap: 8px; margin: 0 0 4px 0;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+                Candidate Applications & Approvals
+              </h2>
+              <p style="color: var(--c-text-muted); font-size: 13.5px; margin: 0;">
+                Vet nominations. Approved candidates are placed onto the active ballot for their program and class section.
+              </p>
+            </div>
+
+            <!-- Responsive Filters for Candidates -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; width: 100%; max-width: 580px;">
+              <select id="candidate-prog-filter" class="form-control" style="flex: 1; min-width: 140px; font-size: 13px;">
+                <option value="ALL">All Programs</option>
+                <option value="COMPUTER SCIENCE">Computer Science</option>
+                <option value="CYBERSECURITY">Cybersecurity</option>
+                <option value="ROBOTICS & AI">Robotics & AI</option>
+                <option value="INFORMATION SYSTEMS & TECHNOLOGY">Info Systems</option>
+              </select>
+
+              <select id="candidate-status-filter" class="form-control" style="flex: 1; min-width: 130px; font-size: 13px;">
+                <option value="ALL">All Statuses</option>
+                <option value="pending">Pending Vetting</option>
+                <option value="approved">Approved</option>
+              </select>
+
+              <input type="text" id="candidate-search" class="form-control" placeholder="Search candidate..." style="flex: 1.2; min-width: 150px; font-size: 13px;">
+            </div>
+          </div>
+
+          <div id="admin-candidate-list">
+            <!-- Candidate cards dynamically rendered via app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Roster & PIN Reset -->
+      <div id="tab-roster" class="admin-tab-content" style="display: none;">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 19px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                Student Roster & Credentials
+              </h2>
+              <p style="color: var(--c-text-muted); font-size: 14px;">Monitor voting status and reset lost student access PINs.</p>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <select id="roster-prog-filter" class="form-control" style="width: auto;">
+                <option value="ALL">All Programs</option>
+                <option value="COMPUTER SCIENCE">Computer Science</option>
+                <option value="CYBERSECURITY">Cybersecurity</option>
+                <option value="ROBOTICS & AI">Robotics & AI</option>
+                <option value="INFORMATION SYSTEMS & TECHNOLOGY">Info Systems</option>
+              </select>
+
+              <select id="roster-class-filter" class="form-control" style="width: auto;">
+                <option value="ALL">All Classes</option>
+                <option value="Class A">Class A</option>
+                <option value="Class B">Class B</option>
+              </select>
+
+              <input type="text" id="roster-search" class="form-control" placeholder="Search student or ID..." style="width: 200px;">
+            </div>
+          </div>
+
+          <!-- Official PDF Class List Downloader -->
+          <div style="background: rgba(10, 50, 0, 0.04); border: 1.5px solid var(--c-aquamarine-2); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+              <div>
+                <strong style="font-size: 14.5px; color: var(--c-black-forest); display: flex; align-items: center; gap: 6px;">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  Official Class Lists (PDF Download)
+                </strong>
+                <span style="display: block; font-size: 12.5px; color: var(--c-text-muted); margin-top: 2px;">
+                  Download certified, printable PDF class rosters with official student reference numbers and full names for election auditing.
+                </span>
+              </div>
+            </div>
+
+            <!-- Fast Download Buttons Grid for Each Class List -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="COMPUTER SCIENCE" data-class="Class A" onclick="downloadClassPDF('COMPUTER SCIENCE', 'Class A')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>CS</strong> • Class A List (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="COMPUTER SCIENCE" data-class="Class B" onclick="downloadClassPDF('COMPUTER SCIENCE', 'Class B')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>CS</strong> • Class B List (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="CYBERSECURITY" data-class="Class A" onclick="downloadClassPDF('CYBERSECURITY', 'Class A')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>CyberSec</strong> • Class A List (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="CYBERSECURITY" data-class="Class B" onclick="downloadClassPDF('CYBERSECURITY', 'Class B')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>CyberSec</strong> • Class B List (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="ROBOTICS & AI" data-class="Class A" onclick="downloadClassPDF('ROBOTICS & AI', 'Class A')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>Robotics &amp; AI</strong> • Class A (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="ROBOTICS & AI" data-class="Class B" onclick="downloadClassPDF('ROBOTICS & AI', 'Class B')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>Robotics &amp; AI</strong> • Class B (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="INFORMATION SYSTEMS & TECHNOLOGY" data-class="Class A" onclick="downloadClassPDF('INFORMATION SYSTEMS & TECHNOLOGY', 'Class A')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>Info Systems</strong> • Class A (PDF)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm download-class-pdf-btn" data-program="INFORMATION SYSTEMS & TECHNOLOGY" data-class="Class B" onclick="downloadClassPDF('INFORMATION SYSTEMS & TECHNOLOGY', 'Class B')" style="justify-content: flex-start; text-align: left; font-size: 12px;">
+                <svg class="icon icon-sm" style="color: var(--c-forest-green);" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span><strong>Info Systems</strong> • Class B (PDF)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Ref Number</th>
+                  <th>Student Name</th>
+                  <th>Gender</th>
+                  <th>Program</th>
+                  <th>Section</th>
+                  <th>Vote Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="roster-table-body">
+                <!-- Injected via app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: WhatsApp Links Manager (NEW SECTION FOR ADMIN) -->
+      <div id="tab-whatsapp" class="admin-tab-content" style="display: none;">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 19px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon" style="color: #25d366;" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                Manage Program WhatsApp Links
+              </h2>
+              <p style="color: var(--c-text-muted); font-size: 14px;">
+                Configure the dynamic official WhatsApp community links distributed to students based on program and class section.
+              </p>
+            </div>
+          </div>
+
+          <div id="admin-whatsapp-editor-container" style="display: grid; gap: 18px;">
+            <!-- Populated with editors for Computer Science, Cybersecurity, Robotics & AI, and IST -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 5: Results & Audit -->
+      <div id="tab-results" class="admin-tab-content" style="display: none;">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 19px; display: flex; align-items: center; gap: 8px;">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Election Tally & Audit Integrity
+              </h2>
+              <p style="color: var(--c-text-muted); font-size: 14px;">Live aggregated ballot counts and CSV export for verification.</p>
+            </div>
+
+            <a href="/api/admin/export-audit" id="export-audit-btn" class="btn btn-primary btn-sm" download>
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              Export CSV Audit Log
+            </a>
+          </div>
+
+          <div id="results-container">
+            <!-- Results breakdown injected -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: Candidate Application -->
+  <div id="apply-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+          Course Representative Application
+        </h3>
+        <button class="modal-close" id="close-apply-modal">&times;</button>
+      </div>
+
+      <div style="background: rgba(116, 242, 206, 0.12); border: 1px solid var(--c-aquamarine-2); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 16px; font-size: 13.5px; color: var(--c-black-forest); line-height: 1.5;">
+        <strong>Democratic Dual-Seat Election:</strong> Each class cohort elects <strong>1 Male Representative</strong> and <strong>1 Female Representative</strong>. All student nominations are reviewed and certified by the <strong>ACSES Public Relations Officer</strong> before appearing on the ballot.
+      </div>
+
+      <form id="candidate-apply-form">
+        <div class="form-group">
+          <label class="form-label" for="apply-position">Contested Position & Class Cohort</label>
+          <input type="text" id="apply-position" class="form-control" style="background: var(--c-surface-muted); font-weight: 700; color: var(--c-black-forest);" value="Course Representative (Assigned by Gender & Class)" readonly>
+        </div>
+
+        <!-- Candidate Portrait Photo Selection -->
+        <div class="form-group">
+          <label class="form-label">Candidate Portrait Photo</label>
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 8px;">
+            <div style="width: 72px; height: 72px; border-radius: 50%; overflow: hidden; background: #f0fdf4; border: 2px solid var(--c-forest-green); flex-shrink: 0; box-shadow: var(--shadow-subtle);">
+              <img id="apply-photo-preview" src="/person-avatar.svg" alt="Preview" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer; margin-bottom: 0;">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  <span>Choose Photo File</span>
+                  <input type="file" id="apply-photo-file" accept="image/*" style="display: none;">
+                </label>
+                <button type="button" class="btn btn-secondary btn-sm" id="toggle-photo-url-btn">Enter Photo URL</button>
+              </div>
+              <span style="font-size: 11.5px; color: var(--c-text-subtle); display: block; margin-top: 4px;">Upload a clear portrait headshot of yourself from your device.</span>
+            </div>
+          </div>
+
+          <div id="photo-url-wrap" style="display: none; margin-bottom: 8px;">
+            <input type="url" id="apply-photo-url" class="form-control" placeholder="https://... direct image link">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="apply-slogan">Campaign Slogan / Motto (Max 100 chars)</label>
+          <input type="text" id="apply-slogan" class="form-control" maxlength="100" placeholder="e.g. Code with Purpose, Lead with Precision" required>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <label class="form-label" for="apply-manifesto">Vision & Platform Manifesto</label>
+            <span id="apply-manifesto-counter" style="font-size: 11.5px; color: var(--c-text-subtle);">0 / 20 min characters</span>
+          </div>
+          <textarea id="apply-manifesto" class="form-control" rows="4" placeholder="Highlight your vision for cohort tutorials, faculty liaison, assignment reminders, lab access, and student academic welfare..." required></textarea>
+        </div>
+
+        <!-- Live Candidate Card Preview -->
+        <div style="background: var(--c-surface-muted); border: 1px dashed var(--c-border); border-radius: var(--radius-md); padding: 12px; margin-bottom: 18px;">
+          <div style="font-size: 12px; font-weight: 700; color: var(--c-forest-green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Live Ballot Card Preview
+          </div>
+          <div style="display: flex; gap: 12px; align-items: center; background: #ffffff; padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--c-border);">
+            <img id="preview-card-img" src="/person-avatar.svg" style="width: 58px; height: 58px; border-radius: var(--radius-sm); object-fit: cover; background: #f0fdf4;">
+            <div style="flex: 1; min-width: 0;">
+              <strong id="preview-card-name" style="font-size: 15px; color: var(--c-black-forest); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Student Name</strong>
+              <span id="preview-card-pos" style="font-size: 12px; color: var(--c-forest-green); font-weight: 600; display: block;">Course Representative</span>
+              <span id="preview-card-slogan" style="font-size: 12px; color: var(--c-text-muted); font-style: italic; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">“Your campaign slogan will appear here”</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px;">
+          <button type="button" class="btn btn-secondary" id="cancel-apply-modal">Cancel</button>
+          <button type="submit" class="btn btn-action" id="submit-application-btn">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Submit Nomination to Public Relations Officer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Full Manifesto Reader -->
+  <div id="manifesto-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 560px;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="display: flex; align-items: center; gap: 8px;">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Candidate Manifesto & Platform
+        </h3>
+        <button class="modal-close" id="close-manifesto-modal">&times;</button>
+      </div>
+
+      <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--c-border);">
+        <img id="manifesto-modal-photo" src="" alt="Candidate" style="width: 68px; height: 68px; border-radius: var(--radius-md); object-fit: cover; border: 2px solid var(--c-forest-green);">
+        <div>
+          <h4 id="manifesto-modal-name" style="font-size: 18px; color: var(--c-black-forest); margin-bottom: 2px;">Candidate Name</h4>
+          <span id="manifesto-modal-pos" style="font-size: 13px; color: var(--c-forest-green); font-weight: 600; display: block;">Male Course Representative • Class A</span>
+          <span id="manifesto-modal-slogan" style="font-size: 12.5px; color: var(--c-text-muted); font-style: italic; display: block; margin-top: 2px;">“Campaign Slogan”</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h5 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--c-forest-green); margin-bottom: 6px;">Platform Vision & Goals</h5>
+        <div id="manifesto-modal-text" style="background: var(--c-surface-muted); padding: 14px; border-radius: var(--radius-sm); font-size: 14px; line-height: 1.6; color: var(--c-black-forest); border: 1px solid rgba(10,50,0,0.08);">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-secondary" id="dismiss-manifesto-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Cast Ballot Confirmation -->
+  <div id="confirm-vote-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          Confirm Anonymous Vote
+        </h3>
+        <button class="modal-close" id="close-vote-modal">&times;</button>
+      </div>
+
+      <p style="margin-bottom: 14px; font-size: 14.5px;">
+        You are casting your anonymous ballot for:
+      </p>
+
+      <div id="confirm-candidates-box" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+        <!-- Populated dynamically with chosen male and female reps -->
+      </div>
+
+      <p style="font-size: 13.5px; color: var(--c-text-subtle); margin-bottom: 20px; line-height: 1.5;">
+        <strong>Anonymity Guarantee:</strong> Your vote is stored in the database without any link to your Student Reference Number. This ballot submission is final and cannot be re-cast.
+      </p>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-secondary" id="cancel-vote-modal">Review Options</button>
+        <button type="button" class="btn btn-action" id="final-submit-vote-btn">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Confirm & Cast Vote
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toasts -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Firebase Web SDK Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCr66nZicKwG7q1QrG-iM_Q4kXkGQKFiU0",
+      authDomain: "acsesec.firebaseapp.com",
+      projectId: "acsesec",
+      storageBucket: "acsesec.firebasestorage.app",
+      messagingSenderId: "734808006364",
+      appId: "1:734808006364:web:4c385086a983ad9946de19",
+      measurementId: "G-L8CBW3D0N5"
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    try {
+      const analytics = getAnalytics(firebaseApp);
+      window.firebaseAnalytics = analytics;
+    } catch (_) {}
+    window.firebaseApp = firebaseApp;
+    console.log("🔥 Firebase initialized successfully (Project: acsesec)");
+  </script>
+
+  <!-- Client Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

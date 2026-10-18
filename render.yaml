@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: acses-api
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        value: acses-election-secure-token-2026

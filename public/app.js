@@ -14,7 +14,7 @@ if (urlParams.has('api')) {
   } catch (_) {}
 }
 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const defaultRemoteBackend = 'https://acses-api.onrender.com';
+const defaultRemoteBackend = 'https://acses-backend-cp8z.onrender.com';
 const configuredBackend = window.ACSES_BACKEND_URL || localStorage.getItem('acses_backend_url') || defaultRemoteBackend;
 const API_BASE = isLocalhost ? '/api' : (configuredBackend.replace(/\/+$/, '') + '/api');
 
